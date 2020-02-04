@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import './App.css';
 // Business List Import
 import BusinessList from '../BusinessList/BusinessList.js';
@@ -473,6 +474,16 @@ class App extends Component {
   searchYelpAPI(term, location, sortBy) {
     console.log('Term: ' + term, 'Location: ' + location, 'Sort By: ' + sortBy);
   }
+  // using Axios to get data from server.js file
+  callAPI() {
+    axios.get('http://localhost:5000/results')
+    .then(response => { console.log(response.data['businesses'])})
+    .catch(error => { console.log(error) });
+  }
+  // as soon as the "App" component is added to the DOM tree, we call the API
+  componentDidMount() {
+      this.callAPI();
+  }
 
   /* 
         * * * * * * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -483,7 +494,6 @@ class App extends Component {
   */
 
   render() {
-
     console.log(`Num of results: `, business['businesses'].length);
 
     return (
